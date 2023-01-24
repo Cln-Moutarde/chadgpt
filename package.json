@@ -1,0 +1,25 @@
+{
+  "name": "chadgpt",
+  "version": "1.0.0",
+  "description": "Bot discord du chad",
+  "main": "main.js",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cln-Moutarde/chadgpt.git"
+  },
+  "keywords": [],
+  "author": "CHAD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cln-Moutarde/chadgpt/issues"
+  },
+  "homepage": "https://github.com/Cln-Moutarde/chadgpt#readme"
+}
