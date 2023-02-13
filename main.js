@@ -4,6 +4,7 @@ import { GatewayIntentBits, Client, Collection, SlashCommandBuilder, Events } fr
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import * as chad from './commands/chad.js';
+import * as chadimg from './commands/chadimg.js'
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 dotenv.config()
 
@@ -25,6 +26,7 @@ const commandsFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(
 
 const commands = [
 	chad.COMMAND_DEFINITION,
+  chadimg.COMMAND_DEFINITION
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
@@ -58,6 +60,9 @@ client.on('interactionCreate', async (interaction) => {
 		case 'chad':
 			chad.run(interaction);
 			break;
+    case 'chadimg':
+      chadimg.run(interaction);
+      break;
 		default:
 			break;
 	}

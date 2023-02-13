@@ -11,9 +11,16 @@ const COMMAND_DEFINITION = new SlashCommandBuilder()
 	);
 
 async function chad(interaction) {
-    const user = interaction.options.getUser();
-    console.log(user)
-    await interaction.reply(`C'est vrai que est chaddesque`)
+	let user = interaction.options.getString('mention');
+
+	if (user === null) {
+		await interaction.reply('tu es un vrai chad')
+
+	} else {
+    	console.log(user)
+    	await interaction.reply(`C'est vrai que ${user} est chaddesque`)
+	}
+
 }
 
 async function run(interaction) {
