@@ -25,7 +25,7 @@ async function citation(interaction) {
         let autor = data[0].a
         console.log(autor)
 
-        await interaction.reply(`**${quote}**; ${autor}`)
+        await interaction.reply(`*${quote}*; ${autor}`)
         
     }
 	};
