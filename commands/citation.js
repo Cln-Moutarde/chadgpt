@@ -19,13 +19,13 @@ async function citation(interaction) {
     if (auteur === null) {
         let response = await fetch(api_url)
         let data = await response.json()
-        console.log(data)
         let quote = data[0].q
         console.log(quote)
         let autor = data[0].a
         console.log(autor)
 
-        await interaction.reply(`*${quote}*; ${autor}`)
+        await interaction.reply(`${quote} 
+**${autor}**`)
         
     }
 	};
