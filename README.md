@@ -1,4 +1,4 @@
-# chadgpt
+# Chad GPT
 
 Bot discord du chad
 
