@@ -1,11 +1,10 @@
-import Canvas from '@napi-rs/canvas'
-import { SlashCommandBuilder} from '@discordjs/builders';
+import Canvas from '@napi-rs/canvas';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { AttachmentBuilder } from 'discord.js';
-
 
 const COMMAND_DEFINITION = new SlashCommandBuilder()
 	.setName('chadimg')
-	.setDescription('Le bot te montre une photo du vrai !')
+	.setDescription('Le bot te montre une photo du vrai !');
 
 async function chadimg(interaction) {
 	const file = new AttachmentBuilder('./commands/files/chad.jpg');
@@ -15,18 +14,12 @@ async function chadimg(interaction) {
 			url: 'attachment://chad.jpg',
 		},
 	};
-	
+
 	interaction.reply({ embeds: [exampleEmbed], files: [file] });
-	
-
-
 }
 
 async function run(interaction) {
 	await chadimg(interaction);
 }
 
-
-export {run, COMMAND_DEFINITION };
-
-
+export { run, COMMAND_DEFINITION };
