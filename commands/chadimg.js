@@ -1,4 +1,3 @@
-import Canvas from '@napi-rs/canvas';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { AttachmentBuilder } from 'discord.js';
 

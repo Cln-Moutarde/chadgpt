@@ -111,6 +111,9 @@ client.on('messageCreate', (message) => {
 	}
 });
 
+process.on('uncaughtException', console.error);
+
+
 client.on('ready', () => {
 	console.log('Bot is ready!');
 });

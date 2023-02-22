@@ -33,20 +33,28 @@ async function spam(interaction) {
 	let user = interaction.options.getUser('personne');
 	let nb = interaction.options.getNumber('nombre') ?? 10;
 
-	interaction.reply('Done');
 
 	for (let i = 0; i < nb; i++) {
 		if (user) {
 			await user.send(msg)
 		} else {
 			await interaction.channel.send(msg)
+			
 		}
 		await sleep(1000)
 	}
 }
 
 async function run(interaction) {
-	await spam(interaction);
+	await interaction.deferReply();
+	try {
+		await spam(interaction);
+		interaction.followUp("Done")
+	} catch (err)  {
+		interaction.followUp(`ERREUR: l'utilisateur a sans doute bloqué le bot (*${err}*)`)	
+	}
+
+
 }
 
 export { run, COMMAND_DEFINITION };
