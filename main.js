@@ -41,10 +41,9 @@ const commands = [
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-rest.put(
-	Routes.applicationGuildCommands(
+await rest.put(
+	Routes.applicationCommands(
 		process.env.CLIENT_ID,
-		process.env.GUILD_ID
 	),
 	{
 		body: commands,
@@ -115,6 +114,7 @@ process.on('uncaughtException', console.error);
 
 
 client.on('ready', () => {
+	client.user.setActivity('you', { type: 'WATCHING' });
 	console.log('Bot is ready!');
 });
 
