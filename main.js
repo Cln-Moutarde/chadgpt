@@ -13,6 +13,7 @@ import * as chad from './commands/chad.js';
 import * as chadimg from './commands/chadimg.js';
 import * as citation from './commands/citation.js';
 import * as spam from './commands/spam.js';
+import * as vote from './commands/vote.js'
 import * as dotenv from 'dotenv'; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 dotenv.config();
 
@@ -38,6 +39,7 @@ const commands = [
 	chadimg.COMMAND_DEFINITION,
 	citation.COMMAND_DEFINITION,
 	spam.COMMAND_DEFINITION,
+	vote.COMMAND_DEFINITION,
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
@@ -83,6 +85,8 @@ client.on('interactionCreate', async (interaction) => {
 		case 'spam':
 			spam.run(interaction);
 			break;
+		case 'vote':
+			vote.run(interaction);
 		default:
 			break;
 	}
