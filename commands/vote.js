@@ -11,10 +11,16 @@ const COMMAND_DEFINITION = new SlashCommandBuilder()
 	);
 
 async function vote(interaction) {
-	let user = interaction.options.getUser('mention');
-    let number = 4
+	let member = interaction.options.getMember('mention');
+	let memberChannel = member.voice.channel
+    let senderChannel = interaction.member.voice.channel
 
-    console.log(user)
+	if (memberChannel === senderChannel) {
+		console.log("oui")
+	} else {
+		console.log("non")
+	}
+
 }
 
 async function run(interaction) {
