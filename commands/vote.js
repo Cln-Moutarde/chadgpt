@@ -1,4 +1,7 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder} from '@discordjs/builders';
+import { ButtonStyle} from 'discord.js';
+
+
 //, CommandInteraction
 const COMMAND_DEFINITION = new SlashCommandBuilder()
 	.setName('vote')
@@ -11,14 +14,29 @@ const COMMAND_DEFINITION = new SlashCommandBuilder()
 	);
 
 async function vote(interaction) {
-	let member = interaction.options.getMember('mention');
-	let memberChannel = member.voice.channel
-    let senderChannel = interaction.member.voice.channel
+	let member = await interaction.guild.members.fetch(interaction.options.getMember('mention'))
+	let memberChannel = member.voice.channel.id
+    let senderChannel = interaction.member.voice.channel.id
+
 
 	if (memberChannel === senderChannel) {
 		console.log("oui")
+		let embed = new EmbedBuilder()
+		.setTitle(`Someone wants ${member.user.username} be mute for a minute`)
+		.setDescription(`If the majority of the voice channel wants ${member.user} be mute, then this user will be for a minute`)
+
+		let row = new ActionRowBuilder()
+		.addComponents(
+			new ButtonBuilder()
+			.setCustomId('confirm')
+			.setLabel('Confirm Kick')
+			.setStyle(ButtonStyle.Danger)
+		)
+
+		interaction.reply({embeds: [embed], components: [row]})
 	} else {
 		console.log("non")
+		interaction.reply("Sorry, but you must be in the same channel than the targeted user")
 	}
 
 }
