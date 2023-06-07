@@ -14,10 +14,12 @@ const COMMAND_DEFINITION = new SlashCommandBuilder()
 	);
 
 async function vote(interaction) {
+	await interaction.deferReply();
 	let member = await interaction.guild.members.fetch(interaction.options.getMember('mention'))
 	let memberChannel = member.voice.channel.id
     let senderChannel = interaction.member.voice.channel.id
-
+	let ceilNumber = Math.ceil(interaction.member.voice.channel.members.size / 2)
+console.log(ceilNumber)
 
 	if (memberChannel === senderChannel) {
 		console.log("oui")
@@ -32,8 +34,10 @@ async function vote(interaction) {
 			.setLabel('Confirm Kick')
 			.setStyle(ButtonStyle.Danger)
 		)
+		interaction.editReply({embeds: [embed], components: [row]})
+		
 
-		interaction.reply({embeds: [embed], components: [row]})
+
 	} else {
 		console.log("non")
 		interaction.reply("Sorry, but you must be in the same channel than the targeted user")
