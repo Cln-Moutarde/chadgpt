@@ -28,7 +28,7 @@ async function vote(interaction) {
 		interaction.member.voice.channel?.members?.size / 2
 	);
 	console.log(ceilNumber);
-	let voteEndTime = Math.round(Date.now() / 1000) + 60
+	let voteEndTime = Math.round(Date.now() / 1000) + 60;
 
 	if (
 		memberChannel !== senderChannel ||
@@ -46,9 +46,14 @@ async function vote(interaction) {
 		.setTitle(`Someone wants ${member.user.username} be mute for a minute`)
 		.setDescription(
 			`If the majority of the voice channel wants ${member.user} be mute, then this user will be for a minute`
-		).addFields(
-			{name: 'Count', value: `0 out of ${ceilNumber} users have voted`, inline: true},
-			{name: 'Timer', value: `<t:${voteEndTime}:R>`, inline: true}
+		)
+		.addFields(
+			{
+				name: 'Count',
+				value: `0 out of ${ceilNumber} users have voted`,
+				inline: true,
+			},
+			{ name: 'Timer', value: `<t:${voteEndTime}:R>`, inline: true }
 		);
 
 	let row = new ActionRowBuilder().addComponents(
@@ -72,38 +77,49 @@ async function vote(interaction) {
 
 	let voters = new Set();
 	if (member.voice.serverMute) {
-		interaction.editReply({embeds: [], components:[], content:"This user is already mute" })
-		return
+		interaction.editReply({
+			embeds: [],
+			components: [],
+			content: 'This user is already mute',
+		});
+		return;
 	}
 	collector.on('collect', async (buttonInteraction) => {
 		voters.add(buttonInteraction.user.id);
 
 		let embed = new EmbedBuilder()
-			.setTitle(`Someone wants ${member.user.username} be mute for a minute`)
+			.setTitle(
+				`Someone wants ${member.user.username} be mute for a minute`
+			)
 			.setDescription(
 				`If the majority of the voice channel wants ${member.user} be mute, then this user will be for a minute`
 			)
 			.addFields(
-				{name: 'Count', value: `${voters.size} out of ${ceilNumber} users have voted`, inline: true},
-				{name: 'Timer', value: `<t:${voteEndTime}:R>`, inline: true}
+				{
+					name: 'Count',
+					value: `${voters.size} out of ${ceilNumber} users have voted`,
+					inline: true,
+				},
+				{ name: 'Timer', value: `<t:${voteEndTime}:R>`, inline: true }
 			);
-		
-		interaction.editReply({ embeds: [embed], components: [row] })
+
+		interaction.editReply({ embeds: [embed], components: [row] });
 
 		if (voters.size >= ceilNumber) {
-			member.voice.setMute(true, `The majority of this voice channel decided to mute ${member.user.username} for a minute after a vote iniciated by ${interaction.member.user.username}`)
+			member.voice.setMute(
+				true,
+				`The majority of this voice channel decided to mute ${member.user.username} for a minute after a vote iniciated by ${interaction.member.user.username}`
+			);
 			interaction.editReply({
 				embeds: [],
 				components: [],
-				content:
-				`The majority of this voice channel decided to mute ${member.user} for a minute after a vote iniciated by ${interaction.member.user}`,
+				content: `The majority of this voice channel decided to mute ${member.user} for a minute after a vote iniciated by ${interaction.member.user}`,
 			});
 			setTimeout(() => {
-				member.voice.setMute(false, "You are unmute");
-			  }, 60000);
+				member.voice.setMute(false, 'You are unmute');
+			}, 60000);
 		}
 	});
-
 
 	collector.on('end', (collected, reason) => {
 		if (voters.size < ceilNumber) {
@@ -112,8 +128,8 @@ async function vote(interaction) {
 				.setDescription(
 					`Only ${voters.size} out of ${ceilNumber} have voted for a mute`
 				);
-	
-			interaction.editReply({embeds: [embed], components: []})
+
+			interaction.editReply({ embeds: [embed], components: [] });
 		}
 	});
 }
